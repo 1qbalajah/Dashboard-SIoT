@@ -12,19 +12,23 @@ use App\Http\Controllers\LCDController;
 Route::middleware('guest')->group(function () {
 
     Route::get('/', [AuthController::class, 'showLogin'])
-        ->name('login');
+        ->name('home');
 
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])
+        ->name('login.store');
 
-    Route::get('/register', [AuthController::class, 'showRegister']);
+    Route::get('/register', [AuthController::class, 'showRegister'])
+        ->name('register');
 
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register', [AuthController::class, 'register'])
+        ->name('register.store');
 });
 
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
     Route::get('/dashboard/realtime', [DashboardController::class, 'realtimeData']);
     Route::post('/servo/send', [ServoController::class, 'send']);
     Route::post('/lcd/send', [LCDController::class, 'send']);
@@ -39,5 +43,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('device', DeviceController::class);
     });
 
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
 });
