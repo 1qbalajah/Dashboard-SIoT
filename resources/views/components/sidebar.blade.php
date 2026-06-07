@@ -9,27 +9,29 @@
     <nav>
         <ul class="nav-list">
             <li class="nav-item">
-                <a href="/dashboard" class="nav-link" data-match="/dashboard">
+                <a href="/dashboard" class="nav-link" data-match="/dashboard" title="Dashboard" aria-label="Dashboard">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
                     </svg>
-                    Dashboard
+                    <span class="nav-text">Dashboard</span>
                 </a>
             </li>
+            @if (auth()->user()?->role === 'admin')
+                <li class="nav-item">
+                    <a href="/device" class="nav-link" data-match="/device" title="Device" aria-label="Device">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                        </svg>
+                        <span class="nav-text">Device</span>
+                    </a>
+                </li>
+            @endif
             <li class="nav-item">
-                <a href="/device" class="nav-link" data-match="/device">
-                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-                    </svg>
-                    Device
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/sensor" class="nav-link" data-match="/sensor">
+                <a href="/sensor" class="nav-link" data-match="/sensor" title="Sensor" aria-label="Sensor">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                     </svg>
-                    Sensor
+                    <span class="nav-text">Sensor</span>
                 </a>
             </li>
         </ul>
@@ -38,11 +40,11 @@
     <div class="nav-login">
         <form action="/logout" method="POST" class="logout-form">
             @csrf
-            <button type="submit" class="logout-btn">
+            <button type="submit" class="logout-btn" title="Logout" aria-label="Logout">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                 </svg>
-                Logout
+                <span class="logout-text">Logout</span>
             </button>
         </form>
     </div>
