@@ -33,7 +33,7 @@
             <!-- =========================================
             SUHU
             ========================================= -->
-            <article class="iot-card">
+            <article class="iot-card card-temp">
 
                 <div class="iot-header">
 
@@ -69,7 +69,7 @@
             <!-- =========================================
             KELEMBAPAN
             ========================================= -->
-            <article class="iot-card">
+            <article class="iot-card card-humidity">
 
                 <div class="iot-header">
 
@@ -105,7 +105,7 @@
             <!-- =========================================
             SERVO
             ========================================= -->
-            <article class="iot-card">
+            <article class="iot-card card-servo">
 
                 <div class="iot-header">
 
@@ -146,7 +146,7 @@
                         max="180"
                         value="90"
                         step="1"
-                        style="width:100%; height: 20px; padding: 0;"
+                        class="servo-slider"
                     />
 
                 </div>
@@ -156,7 +156,7 @@
             <!-- =========================================
             LCD
             ========================================= -->
-            <article class="iot-card">
+            <article class="iot-card card-lcd">
 
                 <div class="iot-header">
 
