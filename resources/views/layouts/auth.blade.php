@@ -4,130 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Auth')</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* 1. Reset & Base */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f8fafc;
-            color: #334155;
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            background: #e9f3fb;
+            color: #151617;
             line-height: 1.5;
+            min-height: 100vh;
         }
 
-        /* 2. Layout Wrapper (pengganti class flex Tailwind) */
         .auth-wrapper {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 28px;
         }
 
-        /* 3. Card Login (Minimalis Dashboard Style) */
         .auth-card {
             width: 100%;
-            max-width: 400px;
-            background: #ffffff;
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
-            /* Shadow biru halus di pinggir */
-            box-shadow: 
-                0 4px 6px -1px rgba(59, 130, 246, 0.08),
-                0 2px 4px -2px rgba(59, 130, 246, 0.05);
+            max-width: 420px;
+            background: #fffefe;
+            padding: 32px;
+            border-radius: 8px;
+            border: 1px solid #dfe7ee;
+            box-shadow: 0 22px 70px rgba(21, 22, 23, 0.08);
             transition: all 0.3s ease;
         }
         .auth-card:hover {
-            box-shadow: 
-                0 10px 15px -3px rgba(59, 130, 246, 0.12),
-                0 4px 6px -4px rgba(59, 130, 246, 0.08);
+            box-shadow: 0 28px 80px rgba(21, 22, 23, 0.1);
         }
 
-        /* 4. Typography */
         .auth-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1e293b;
+            font-size: 28px;
+            font-weight: 800;
+            color: #151617;
             text-align: center;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.025em;
+            margin-bottom: 24px;
+            letter-spacing: 0;
         }
 
-        /* 5. Form Input */
-        .form-group { margin-bottom: 1rem; }
+        .form-group { margin-bottom: 16px; }
         .form-input {
             width: 100%;
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            color: #475569;
-            background-color: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.5rem;
+            padding: 13px 14px;
+            font-size: 14px;
+            color: #151617;
+            background-color: #f7fbff;
+            border: 1px solid #dfe7ee;
+            border-radius: 8px;
             outline: none;
             transition: all 0.2s ease;
         }
-        .form-input::placeholder { color: #94a3b8; }
+        .form-input::placeholder { color: #68727f; }
         
-        /* Focus: Shadow biru minimalis di pinggir border */
         .form-input:focus {
-            border-color: #3b82f6;
+            border-color: #151617;
             background-color: #ffffff;
-            box-shadow: 
-                0 0 0 3px rgba(59, 130, 246, 0.15),
-                0 2px 4px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 3px rgba(21, 22, 23, 0.06);
         }
-        /* Validasi client-side: border merah hanya muncul setelah user interact */
         .form-input:invalid:not(:placeholder-shown) {
             border-color: #ef4444;
         }
 
-        /* 6. Button */
         .btn-primary {
             width: 100%;
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            font-weight: 500;
+            padding: 13px 16px;
+            font-size: 14px;
+            font-weight: 700;
             color: #ffffff;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            background: #151617;
             border: none;
-            border-radius: 0.5rem;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.25);
+            box-shadow: 0 12px 22px rgba(21, 22, 23, 0.12);
         }
         .btn-primary:hover {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            box-shadow: 0 6px 8px -1px rgba(59, 130, 246, 0.35);
+            background: #272727;
+            box-shadow: 0 16px 26px rgba(21, 22, 23, 0.16);
             transform: translateY(-1px);
         }
         .btn-primary:active {
             transform: translateY(0);
-            box-shadow: 0 2px 4px -1px rgba(59, 130, 246, 0.25);
         }
 
-        /* 7. Footer & Links */
         .auth-footer {
-            margin-top: 1.25rem;
+            margin-top: 20px;
             text-align: center;
-            font-size: 0.875rem;
-            color: #64748b;
+            font-size: 14px;
+            color: #68727f;
         }
         .auth-link {
-            color: #3b82f6;
+            color: #151617;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
             transition: color 0.2s;
         }
-        .auth-link:hover { color: #1d4ed8; text-decoration: underline; }
+        .auth-link:hover { color: #2458ff; }
 
-        /* 8. Error Message */
         .error-message {
-            margin-top: 0.4rem;
-            font-size: 0.75rem;
+            margin-top: 6px;
+            font-size: 12px;
             color: #ef4444;
             display: flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 6px;
         }
         .error-dot {
             display: inline-block;

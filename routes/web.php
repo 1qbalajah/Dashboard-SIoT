@@ -33,12 +33,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/servo/send', [ServoController::class, 'send']);
     Route::post('/lcd/send', [LCDController::class, 'send']);
 
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware('role:user,admin')->group(function () {
 
         Route::resource('sensor', SensorController::class);
     });
 
-    Route::middleware('role:user')->group(function () {
+    Route::middleware('role:admin')->group(function () {
 
         Route::resource('device', DeviceController::class);
     });

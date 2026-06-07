@@ -70,10 +70,18 @@ class DashboardController extends Controller
         // Timeout untuk menentukan "last seen" device (status offline kalau tidak ada topic lagi dalam window ini)
         $timeout = now()->subSeconds(15);
 
-        $temperature = Sensor::where('nama_sensor', 'Suhu')->latest()->first();
-        $humidity = Sensor::where('nama_sensor', 'Kelembapan')->latest()->first();
+        $temperature = Sensor::select(['id', 'data', 'updated_at'])
+            ->where('nama_sensor', 'Suhu')
+            ->latest()
+            ->first();
 
-        $devices = Device::latest('updated_at')
+        $humidity = Sensor::select(['id', 'data', 'updated_at'])
+            ->where('nama_sensor', 'Kelembapan')
+            ->latest()
+            ->first();
+
+        $devices = Device::select(['serial_number', 'status', 'topic', 'updated_at'])
+            ->latest('updated_at')
             ->get()
             ->map(function ($device) use ($timeout) {
                 $isOnline = $device->updated_at &&
@@ -98,6 +106,6 @@ class DashboardController extends Controller
                 : null,
 
             'devices' => $devices->values(),
-        ]);
+        ])->header('Cache-Control', 'no-store, max-age=0');
     }
 }

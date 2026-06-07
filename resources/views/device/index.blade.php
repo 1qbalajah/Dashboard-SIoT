@@ -11,7 +11,7 @@
             <p class="body-md">Kelola dan pantau seluruh perangkat IoT Anda</p>
         </div>
         <div class="d-flex gap-2">
-            <a href="/" class="btn-ghost">← Home</a>
+            <a href="/" class="btn-ghost">Home</a>
             <a href="{{ route('device.create') }}" class="btn-primary">+ Tambah Device</a>
         </div>
     </div>

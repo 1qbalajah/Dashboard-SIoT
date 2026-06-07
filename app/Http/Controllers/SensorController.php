@@ -9,7 +9,9 @@ class SensorController extends Controller
 {
     public function index()
     {
-        $sensors = Sensor::all();
+        $sensors = Sensor::latest()
+            ->paginate(15);
+
         return view('sensor.index', compact('sensors'));
     }
 
@@ -25,7 +27,7 @@ class SensorController extends Controller
             'data'        => 'required|integer|min:0',
         ]);
 
-        Sensor::create($request->all());
+        Sensor::create($request->only(['nama_sensor', 'data']));
 
         return redirect()->route('sensor.index')
                          ->with('success', 'Data sensor berhasil ditambahkan');
@@ -45,7 +47,7 @@ class SensorController extends Controller
         ]);
 
         $sensor = Sensor::findOrFail($id);
-        $sensor->update($request->all());
+        $sensor->update($request->only(['nama_sensor', 'data']));
 
         return redirect()->route('sensor.index')
                          ->with('success', 'Data berhasil diupdate');

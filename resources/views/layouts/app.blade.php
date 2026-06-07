@@ -14,26 +14,26 @@
         /* ===== AZURE METRICS DESIGN SYSTEM ===== */
         :root {
             /* Colors - Surface & Background */
-            --surface: #eef2f6;
-            --surface-container: #f8fafc;
+            --surface: #e9f3fb;
+            --surface-container: #f7fbff;
             --surface-container-low: #f8fafc;
             --surface-container-high: #e2e8f0;
-            --surface-bright: #ffffff;
-            --on-surface: #0f172a;
-            --on-surface-variant: #64748b;
+            --surface-bright: #fffefe;
+            --on-surface: #151617;
+            --on-surface-variant: #68727f;
 
             /* Colors - Primary */
-            --primary: #0f172a;
-            --primary-container: #1e293b;
+            --primary: #151617;
+            --primary-container: #272727;
             --on-primary: #ffffff;
             --on-primary-container: #e2e8f0;
             --primary-fixed: #e2e8f0;
             --primary-fixed-dim: #cbd5e1;
 
             /* Colors - Secondary & Accent */
-            --secondary: #0f172a;
-            --secondary-container: #f1f5f9;
-            --on-secondary: #0f172a;
+            --secondary: #2458ff;
+            --secondary-container: #eef4ff;
+            --on-secondary: #18347c;
 
             /* Colors - Status */
             --error: #ef4444;
@@ -60,30 +60,30 @@
             /* Rounded */
             --radius-sm: 8px;
             --radius-md: 12px;
-            --radius-lg: 20px;
-            --radius-xl: 24px;
+            --radius-lg: 8px;
+            --radius-xl: 8px;
 
             /* Pastel Colors for Sensor Cards */
-            --temp-bg: #fff5f0;
-            --temp-border: #ffe4d6;
-            --temp-text: #c2410c;
+            --temp-bg: #e4f3ff;
+            --temp-border: #cae7fb;
+            --temp-text: #13202b;
             
-            --humidity-bg: #f0f7ff;
-            --humidity-border: #dbeafe;
-            --humidity-text: #1d4ed8;
+            --humidity-bg: #efe7ff;
+            --humidity-border: #ddcffb;
+            --humidity-text: #35265f;
 
-            --servo-bg: #f0fdf4;
-            --servo-border: #dcfce7;
-            --servo-text: #15803d;
+            --servo-bg: #dff5e8;
+            --servo-border: #c8ead5;
+            --servo-text: #173d2a;
 
-            --lcd-bg: #0f111a;
+            --lcd-bg: #191919;
             --lcd-text: #ffffff;
             --lcd-border: #1e293b;
 
             /* Shadows */
-            --shadow-level1: 0 4px 20px rgba(15, 23, 42, 0.015);
-            --shadow-level2: 0 12px 30px rgba(15, 23, 42, 0.04);
-            --shadow-hover: 0 8px 24px rgba(15, 23, 42, 0.03);
+            --shadow-level1: 0 12px 34px rgba(21, 22, 23, 0.04);
+            --shadow-level2: 0 24px 60px rgba(21, 22, 23, 0.08);
+            --shadow-hover: 0 18px 44px rgba(21, 22, 23, 0.08);
         }
 
         /* ===== RESET & BASE ===== */
@@ -109,7 +109,7 @@
         /* ===== LAYOUT GRID ===== */
         .dashboard-layout {
             display: grid;
-            grid-template-columns: 260px 1fr;
+            grid-template-columns: 92px 1fr;
             min-height: 100vh;
             height: 100vh;
             overflow: hidden;
@@ -118,7 +118,7 @@
 
         /* ===== MAIN CONTENT - WRAPPED IN PALE BLUE FRAME ===== */
         .main-content {
-            padding: 24px;
+            padding: 28px 32px 28px 0;
             background-color: var(--surface);
             height: 100vh;
             display: flex;
@@ -129,11 +129,11 @@
         /* ===== CONTENT CANVAS - WHITE ROUNDED CONTAINER ===== */
         .content-canvas {
             background-color: var(--surface-bright);
-            border-radius: 32px;
-            padding: 40px;
+            border-radius: 0 28px 28px 0;
+            padding: 32px;
             flex: 1;
             overflow-y: auto;
-            box-shadow: 0 4px 30px rgba(15, 23, 42, 0.015);
+            box-shadow: 0 22px 70px rgba(21, 22, 23, 0.08);
             display: flex;
             flex-direction: column;
             scroll-behavior: smooth;
@@ -159,7 +159,7 @@
             font-size: 32px;
             font-weight: 800;
             line-height: 1.2;
-            letter-spacing: -0.03em;
+            letter-spacing: 0;
             color: var(--on-surface);
         }
 
@@ -167,14 +167,14 @@
             font-size: 26px;
             font-weight: 700;
             line-height: 1.3;
-            letter-spacing: -0.02em;
+            letter-spacing: 0;
         }
 
         .headline-md {
             font-size: 22px;
             font-weight: 700;
             line-height: 1.3;
-            letter-spacing: -0.02em;
+            letter-spacing: 0;
         }
 
         .headline-sm {
@@ -236,7 +236,7 @@
             font-size: 28px;
             font-weight: 800;
             color: var(--primary);
-            letter-spacing: -0.03em;
+            letter-spacing: 0;
         }
 
         .greeting-subtitle {
@@ -283,7 +283,7 @@
         .card-icon {
             width: 40px;
             height: 40px;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             background: var(--primary-fixed);
             display: flex;
             align-items: center;
@@ -326,7 +326,7 @@
             background: var(--primary);
             color: var(--on-primary);
             border: none;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             font-family: var(--font-main);
             font-size: 14px;
             font-weight: 600;
@@ -371,7 +371,7 @@
             background: var(--error-container);
             color: var(--error);
             border: 1px solid transparent;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius-lg);
             font-family: var(--font-main);
             font-size: 12px;
             font-weight: 600;
@@ -479,30 +479,29 @@
 
         /* ===== SIDEBAR ===== */
         .sidebar {
-            background-color: #0c0e12;
+            background-color: #1b1b1a;
             color: #94a3b8;
-            padding: 32px 24px;
+            padding: 28px 18px;
             display: flex;
             flex-direction: column;
             height: 100vh;
             z-index: 10;
-            border-right: 1px solid #1e293b;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .sidebar-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding-bottom: 24px;
-            margin-bottom: 24px;
-            border-bottom: 1px solid #1e293b;
+            justify-content: center;
+            padding-bottom: 28px;
+            margin-bottom: 28px;
         }
 
         .sidebar-logo-img {
             width: 44px;
             height: 44px;
             border-radius: 14px;
-            background: #fcf6e8;
+            background: #fff7db;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -513,13 +512,7 @@
             box-shadow: 0 4px 12px rgba(252, 246, 232, 0.15);
         }
 
-        .sidebar-logo-text {
-            font-family: var(--font-main);
-            font-size: 18px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.02em;
-        }
+        .sidebar-logo-text { display: none; }
 
         .nav-list {
             list-style: none;
@@ -533,9 +526,11 @@
         .nav-link {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border-radius: 12px;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            border-radius: 8px;
             color: #94a3b8;
             text-decoration: none;
             font-family: var(--font-main);
@@ -547,11 +542,11 @@
         .nav-link:hover {
             color: #ffffff;
             background: rgba(255, 255, 255, 0.04);
-            transform: translateX(4px);
+            transform: translateY(-1px);
         }
 
         .nav-link.active {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.08);
             color: #ffffff;
             font-weight: 600;
         }
@@ -561,28 +556,36 @@
             height: 20px;
         }
 
+        .nav-text {
+            display: none;
+        }
+
         .nav-login {
             margin-top: auto;
             padding-top: var(--space-3);
-            border-top: 1px solid #1e293b;
         }
 
         .logout-btn {
             display: flex;
             align-items: center;
-            gap: 12px;
-            width: 100%;
-            padding: 12px 16px;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            padding: 0;
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: #94a3b8;
-            border-radius: 12px;
+            border-radius: 8px;
             font-family: var(--font-main);
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: left;
+        }
+
+        .logout-text {
+            display: none;
         }
 
         .logout-btn:hover {
@@ -605,6 +608,8 @@
         .mb-2 { margin-bottom: var(--space-2); }
         .mt-2 { margin-top: var(--space-2); }
         .mt-4 { margin-top: var(--space-4); }
+        .mb-0 { margin-bottom: 0; }
+        .w-100 { width: 100%; }
         .px-3 { padding-left: var(--space-3); padding-right: var(--space-3); }
         .py-2 { padding-top: var(--space-2); padding-bottom: var(--space-2); }
         .overflow-x-auto { overflow-x: auto; }
@@ -639,7 +644,7 @@
             color: var(--on-surface);
             background: #f8fafc;
             border: 1px solid var(--outline-variant);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             outline: none;
             transition: all 0.2s ease;
         }
@@ -694,10 +699,10 @@
         .iot-card {
             position: relative;
             overflow: hidden;
-            border-radius: 28px;
-            padding: 28px;
+            border-radius: 8px;
+            padding: 24px;
             transition: all .25s ease;
-            min-height: 220px;
+            min-height: 188px;
             border: 1px solid transparent;
             display: flex;
             flex-direction: column;
@@ -723,7 +728,7 @@
             gap: 8px;
             font-weight: 700;
             font-size: 15px;
-            letter-spacing: -0.01em;
+            letter-spacing: 0;
         }
 
         .iot-status {
@@ -732,7 +737,7 @@
             gap: 6px;
             font-size: 10px;
             font-weight: 700;
-            letter-spacing: 0.05em;
+            letter-spacing: 0;
             text-transform: uppercase;
         }
 
@@ -805,11 +810,11 @@
         }
 
         .sensor-value {
-            font-size: 44px;
+            font-size: 38px;
             font-weight: 800;
             line-height: 1;
             font-family: var(--font-mono);
-            letter-spacing: -0.04em;
+            letter-spacing: 0;
             margin: var(--space-2) 0;
         }
 
@@ -852,10 +857,29 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
 
+        .servo-wrapper {
+            display: grid;
+            gap: 10px;
+        }
+
+        .servo-labels {
+            color: currentColor;
+            opacity: 0.72;
+        }
+
+        .lcd-form {
+            display: grid;
+            gap: 12px;
+        }
+
+        .lcd-input {
+            min-width: 0;
+        }
+
         /* ===== DEVICE MONITOR BOX ===== */
         .device-monitor {
             background: var(--surface-bright);
-            border-radius: 24px;
+            border-radius: 8px;
             border: 1px solid var(--outline-variant);
             overflow: hidden;
             box-shadow: var(--shadow-level1);
@@ -908,6 +932,46 @@
             animation: pulse-live 1.5s infinite;
         }
 
+        /* ===== PAGINATION ===== */
+        nav[role="navigation"] {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--on-surface-variant);
+        }
+
+        nav[role="navigation"] .hidden {
+            display: none;
+        }
+
+        nav[role="navigation"] a,
+        nav[role="navigation"] span[aria-current] span,
+        nav[role="navigation"] span[aria-disabled] span {
+            display: inline-flex;
+            min-width: 34px;
+            height: 34px;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+            border: 1px solid var(--outline-variant);
+            border-radius: 8px;
+            color: var(--on-surface);
+            text-decoration: none;
+            background: var(--surface-bright);
+        }
+
+        nav[role="navigation"] span[aria-current] span {
+            background: var(--primary);
+            color: var(--on-primary);
+            border-color: var(--primary);
+        }
+
+        nav[role="navigation"] span[aria-disabled] span {
+            opacity: 0.45;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
             .dashboard-layout {
@@ -921,7 +985,26 @@
                 min-height: auto;
                 height: auto;
                 overflow: visible;
-                padding: 24px;
+                padding: 16px;
+                flex-direction: row;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .sidebar-logo {
+                padding-bottom: 0;
+                margin-bottom: 0;
+            }
+
+            .nav-list {
+                display: flex;
+                gap: 8px;
+            }
+
+            .nav-login {
+                margin-left: auto;
+                margin-top: 0;
+                padding-top: 0;
             }
 
             .main-content {
@@ -931,7 +1014,7 @@
             }
 
             .content-canvas {
-                border-radius: 20px;
+                border-radius: 16px;
                 padding: 24px;
             }
 

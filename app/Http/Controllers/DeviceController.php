@@ -9,7 +9,9 @@ class DeviceController extends Controller
 {
     public function index()
     {
-        $devices = Device::all();
+        $devices = Device::latest()
+            ->paginate(15);
+
         return view('device.index', compact('devices'));
     }
 
@@ -21,11 +23,11 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'serial_number' => 'required',
-            'topic' => 'required'
+            'serial_number' => 'required|string|max:255',
+            'topic' => 'required|string|max:255',
         ]);
 
-        Device::create($request->all());
+        Device::create($request->only(['serial_number', 'topic']));
 
         return redirect()->route('device.index')
                          ->with('success', 'Data berhasil ditambahkan');
@@ -39,9 +41,14 @@ class DeviceController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'serial_number' => 'required|string|max:255',
+            'topic' => 'required|string|max:255',
+        ]);
+
         $device = Device::findOrFail($id);
 
-        $device->update($request->all());
+        $device->update($request->only(['serial_number', 'topic']));
 
         return redirect()->route('device.index')
                          ->with('success', 'Data berhasil diupdate');

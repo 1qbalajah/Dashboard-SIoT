@@ -64,6 +64,25 @@
             @enderror
         </div>
 
+        <!-- Password Confirmation -->
+        <div class="form-group">
+            <input
+                type="password"
+                name="password_confirmation"
+                placeholder="Konfirmasi Password"
+                required
+                oninvalid="this.setCustomValidity('kolum ini wajib di isi')"
+                oninput="this.setCustomValidity('')"
+                class="form-input"
+            >
+            @error('password_confirmation')
+                <p class="error-message">
+                    <span class="error-dot"></span>
+                    {{ str_contains($message, 'match') ? 'konfirmasi password tidak sama' : $message }}
+                </p>
+            @enderror
+        </div>
+
         <button type="submit" class="btn-primary">Register</button>
     </form>
 

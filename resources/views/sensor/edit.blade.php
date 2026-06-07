@@ -7,7 +7,7 @@
 <div class="content-header">
     <div class="d-flex justify-content-between align-items-center">
         <a href="{{ route('sensor.index') }}" class="btn-ghost">
-            ← Kembali
+            Kembali
         </a>
         <h1 class="headline-md mb-0">Edit Sensor</h1>
         <div></div>

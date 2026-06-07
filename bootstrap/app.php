@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
     ->withMiddleware(function (Middleware $middleware): void {
 
-        $middleware->redirectGuestsTo('/');
+        $middleware->redirectGuestsTo('/login');
 
         // register middleware role
         $middleware->alias([

@@ -11,7 +11,7 @@
             <p class="body-md">Kelola dan pantau seluruh sensor IoT Anda</p>
         </div>
         <div class="d-flex gap-2">
-            <a href="/" class="btn-ghost">← Home</a>
+            <a href="/" class="btn-ghost">Home</a>
             <a href="{{ route('sensor.create') }}" class="btn-primary">+ Tambah Sensor</a>
         </div>
     </div>
