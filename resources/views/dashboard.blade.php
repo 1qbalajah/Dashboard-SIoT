@@ -141,12 +141,28 @@
                     </tr>
                 </thead>
                 <tbody id="device-table-body">
-                    <tr>
-                        <td class="table-cell">-</td>
-                        <td class="table-cell">-</td>
-                        <td class="table-cell">-</td>
-                        <td class="table-cell">-</td>
-                    </tr>
+                    @forelse ($devices as $device)
+                        <tr>
+                            <td class="table-cell">
+                                <span class="label-md">{{ $device['serial_number'] }}</span>
+                            </td>
+                            <td class="table-cell">
+                                <div class="device-status-badge {{ $device['status'] === 'online' ? 'device-status-online' : 'device-status-offline' }}">
+                                    <span class="status-dot"></span>
+                                    {{ strtoupper($device['status']) }}
+                                </div>
+                            </td>
+                            <td class="table-cell">{{ $device['topic'] ?? '-' }}</td>
+                            <td class="table-cell">{{ $device['updated_at'] ?? '-' }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td class="table-cell">-</td>
+                            <td class="table-cell">-</td>
+                            <td class="table-cell">-</td>
+                            <td class="table-cell">-</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

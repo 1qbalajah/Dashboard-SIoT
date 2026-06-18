@@ -10,6 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $timeout = now()->subSeconds(15);
+
         // =========================
         // TOTAL DATA
         // =========================
@@ -50,6 +52,21 @@ class DashboardController extends Controller
             ->take(5)
             ->values();
 
+        $devices = Device::select(['serial_number', 'status', 'topic', 'updated_at'])
+            ->latest('updated_at')
+            ->get()
+            ->map(function ($device) use ($timeout) {
+                $isOnline = $device->updated_at &&
+                    $device->updated_at->greaterThanOrEqualTo($timeout);
+
+                return [
+                    'serial_number' => $device->serial_number,
+                    'status' => $isOnline ? 'online' : 'offline',
+                    'topic' => $device->topic,
+                    'updated_at' => optional($device->updated_at)->format('Y-m-d H:i:s'),
+                ];
+            });
+
         // =========================
         // VIEW
         // =========================
@@ -57,7 +74,8 @@ class DashboardController extends Controller
         return view('dashboard', compact(
             'totalDevice',
             'totalSensor',
-            'recentActivities'
+            'recentActivities',
+            'devices'
         ));
     }
 
