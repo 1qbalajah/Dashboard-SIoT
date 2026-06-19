@@ -121,12 +121,15 @@
     <section class="device-monitor">
         <div class="device-monitor-header d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="section-title mb-0">Device Connected</h2>
+                <h2 class="section-title mb-0">Status Device</h2>
                 <p class="body-sm">Perangkat yang aktif dihitung dari aktivitas 15 detik terakhir.</p>
             </div>
 
-            <div id="footer-status" class="device-status-badge device-status-offline">
-                MQTT DISCONNECTED
+            <div class="d-flex align-items-center gap-2">
+                <span id="last-activity" class="label-sm">Belum ada device yang terhubung</span>
+                <div id="footer-status" class="device-status-badge device-status-offline">
+                    MQTT DISCONNECTED
+                </div>
             </div>
         </div>
 
@@ -134,10 +137,8 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th class="table-header">Device ID</th>
+                        <th class="table-header">Serial Number</th>
                         <th class="table-header">Status</th>
-                        <th class="table-header">Topic</th>
-                        <th class="table-header">Last Activity</th>
                     </tr>
                 </thead>
                 <tbody id="device-table-body">
@@ -152,13 +153,9 @@
                                     {{ strtoupper($device['status']) }}
                                 </div>
                             </td>
-                            <td class="table-cell">{{ $device['topic'] ?? '-' }}</td>
-                            <td class="table-cell">{{ $device['updated_at'] ?? '-' }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td class="table-cell">-</td>
-                            <td class="table-cell">-</td>
                             <td class="table-cell">-</td>
                             <td class="table-cell">-</td>
                         </tr>
@@ -166,46 +163,6 @@
                 </tbody>
             </table>
         </div>
-    </section>
-
-    <section class="section">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="section-title mb-0">Data Terbaru</h2>
-            <span id="last-activity" class="label-sm">Belum ada device yang terhubung</span>
-        </div>
-
-        <article class="card" style="padding: 0; overflow: hidden;">
-            @if ($recentActivities && $recentActivities->count() > 0)
-                <ul style="list-style: none; margin: 0; padding: 0;">
-                    @foreach ($recentActivities as $activity)
-                        <li style="padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--outline-variant); display: flex; align-items: flex-start; gap: var(--space-2);">
-                            <div class="card-icon">
-                                {{ $activity->type === 'device' ? 'D' : 'S' }}
-                            </div>
-
-                            <div style="flex: 1; min-width: 0;">
-                                <div class="d-flex justify-content-between align-items-center gap-2">
-                                    <span class="body-md" style="font-weight: 600; color: var(--on-surface);">
-                                        {{ $activity->title ?? 'Tanpa judul' }}
-                                    </span>
-
-                                    <span class="device-status-badge {{ $activity->type === 'device' ? 'device-status-online' : 'device-status-offline' }}">
-                                        {{ ucfirst($activity->type) }}
-                                    </span>
-                                </div>
-
-                                <p class="body-sm">{{ $activity->description }}</p>
-                                <span class="label-sm">{{ $activity->created_at }}</span>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
-            @else
-                <div class="table-empty text-center">
-                    <p class="body-md">Belum ada aktivitas terbaru</p>
-                </div>
-            @endif
-        </article>
     </section>
 @endsection
 
@@ -344,8 +301,6 @@
                         <tr>
                             <td class="table-cell">-</td>
                             <td class="table-cell">-</td>
-                            <td class="table-cell">-</td>
-                            <td class="table-cell">-</td>
                         </tr>
                     `;
                 } else {
@@ -358,16 +313,16 @@
                                     ${device.status.toUpperCase()}
                                 </div>
                             </td>
-                            <td class="table-cell">${device.topic ?? '-'}</td>
-                            <td class="table-cell">${device.updated_at ?? '-'}</td>
                         </tr>
                     `).join('');
                 }
 
                 const lastActivity = document.getElementById('last-activity');
-                lastActivity.innerText = devices.length > 0
-                    ? `${devices[0].serial_number} terakhir aktif`
-                    : 'Belum ada device yang terhubung';
+                if (lastActivity) {
+                    lastActivity.innerText = devices.length > 0
+                        ? `${devices[0].serial_number} terakhir aktif`
+                        : 'Belum ada device yang terhubung';
+                }
 
                 realtimeDelay = document.hidden ? 5000 : 1000;
             } catch (error) {

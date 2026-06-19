@@ -14,6 +14,7 @@ class Device extends Model
     protected $fillable = [
         'serial_number',
         'status',
-        'topic'
+        'topic',
+        'updated_at'
     ];
 }

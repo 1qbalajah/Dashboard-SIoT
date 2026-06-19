@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Device;
 use App\Models\Sensor;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -20,52 +19,7 @@ class DashboardController extends Controller
 
         $totalSensor = Sensor::count();
 
-        // =========================
-        // AKTIVITAS TERBARU
-        // =========================
-
-        $recentDevices = Device::select(
-            'id',
-            'serial_number as title',
-            'topic as description',
-            'created_at',
-            DB::raw("'device' as type")
-        )
-            ->latest()
-            ->limit(5)
-            ->get();
-
-        $recentSensors = Sensor::select(
-            'id',
-            'nama_sensor as title',
-            'data as description',
-            'created_at',
-            DB::raw("'sensor' as type")
-        )
-            ->latest()
-            ->limit(5)
-            ->get();
-
-        $recentActivities = $recentDevices
-            ->concat($recentSensors)
-            ->sortByDesc('created_at')
-            ->take(5)
-            ->values();
-
-        $devices = Device::select(['serial_number', 'status', 'topic', 'updated_at'])
-            ->latest('updated_at')
-            ->get()
-            ->map(function ($device) use ($timeout) {
-                $isOnline = $device->updated_at &&
-                    $device->updated_at->greaterThanOrEqualTo($timeout);
-
-                return [
-                    'serial_number' => $device->serial_number,
-                    'status' => $isOnline ? 'online' : 'offline',
-                    'topic' => $device->topic,
-                    'updated_at' => optional($device->updated_at)->format('Y-m-d H:i:s'),
-                ];
-            });
+        $devices = $this->deviceStatuses($timeout);
 
         // =========================
         // VIEW
@@ -74,7 +28,6 @@ class DashboardController extends Controller
         return view('dashboard', compact(
             'totalDevice',
             'totalSensor',
-            'recentActivities',
             'devices'
         ));
     }
@@ -98,20 +51,7 @@ class DashboardController extends Controller
             ->latest()
             ->first();
 
-        $devices = Device::select(['serial_number', 'status', 'topic', 'updated_at'])
-            ->latest('updated_at')
-            ->get()
-            ->map(function ($device) use ($timeout) {
-                $isOnline = $device->updated_at &&
-                    $device->updated_at->greaterThanOrEqualTo($timeout);
-
-                return [
-                    'serial_number' => $device->serial_number,
-                    'status' => $isOnline ? 'online' : 'offline',
-                    'topic' => $device->topic,
-                    'updated_at' => optional($device->updated_at)->format('Y-m-d H:i:s'),
-                ];
-            });
+        $devices = $this->deviceStatuses($timeout);
 
         return response()->json([
             // Sensor juga pakai timeout, biar OFFLINE saat tidak ada update
@@ -125,5 +65,21 @@ class DashboardController extends Controller
 
             'devices' => $devices->values(),
         ])->header('Cache-Control', 'no-store, max-age=0');
+    }
+
+    private function deviceStatuses($timeout)
+    {
+        return Device::select(['serial_number', 'updated_at'])
+            ->latest('updated_at')
+            ->get()
+            ->map(function ($device) use ($timeout) {
+                $isOnline = $device->updated_at &&
+                    $device->updated_at->greaterThanOrEqualTo($timeout);
+
+                return [
+                    'serial_number' => $device->serial_number,
+                    'status' => $isOnline ? 'online' : 'offline',
+                ];
+            });
     }
 }
